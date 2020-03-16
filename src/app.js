@@ -7,7 +7,6 @@ const cors = require('cors')
 const app = express();
 const sequelize = require('../src/database/index');
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors());
@@ -24,11 +23,6 @@ const Group = require('./models/Group');
 
 Group.init(sequelize);
 
-sequelize.sync({force:true})
+sequelize.sync({force:false})
 
-
-app.get('/', function(req, res) {
-    res.send('Foca no treino');
-  });
-  
 module.exports = app;
