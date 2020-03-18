@@ -13,8 +13,13 @@ exports.delete = async (group) => {
     await group.destroy();
 }
 
-exports.post = async (group) =>{
-    return Group.create(group)
+exports.post = async (group,day_id) =>{
+    const {name} = group;
+
+    return Group.create({
+        name: name,
+        day_id:day_id
+    })
 }
 
 

@@ -1,7 +1,6 @@
 
 const {DataTypes,Model} = require('sequelize') 
 
-
 class Group extends Model{
 	static init(sequelize){
 		super.init({
@@ -11,12 +10,17 @@ class Group extends Model{
 				validate: {
 					notEmpty: true,
 					notNull: true
-				},
-				unique:true
+				}
 			}
 		},{
-			sequelize
-		})
+			sequelize,
+			tableName: 'groups'
+		});
+		
+	}
+	static associate(models){
+		this.belongsTo(models.Day,{foreignKey: 'day_id'})
+		this.hasMany(models.Exercise,{onDelete: 'cascade', hooks: true});
 	}
 
 }

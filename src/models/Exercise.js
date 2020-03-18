@@ -1,7 +1,6 @@
 
 const {DataTypes,Model} = require('sequelize') 
 
-
 class Exercise extends Model{
 	static init(sequelize){
 		super.init({
@@ -23,7 +22,8 @@ class Exercise extends Model{
 				}
 			}
 		},{
-			sequelize
+			sequelize,
+			tableName: 'exercises',
 		})
 	}
 

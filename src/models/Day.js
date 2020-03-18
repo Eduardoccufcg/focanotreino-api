@@ -15,8 +15,13 @@ class Day extends Model{
 				unique:true
 			}
 		},{
-			sequelize
+			sequelize,
+			tableName: 'days'
 		})
+	}
+	static associate(models){
+		this.hasMany(models.Group,{foreignKey: 'day_id',as:"groups",
+		onDelete: 'cascade', hooks: true});
 	}
 }
 module.exports = Day;

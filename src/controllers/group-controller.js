@@ -1,10 +1,17 @@
 'use strict';
 
 const repository = require("../repositories/group-repository");
+const dayRepository = require("../repositories/day-repository");
 
 exports.post = async (req, res, next) => {
 
-    repository.post(req.body).
+    const {day_id} = req.params;
+    const day = await dayRepository.getById(day_id);
+    console.log(day)
+    if(!day){
+        res.status(404).json({error: "Dia não existe"});
+    }else{
+        repository.post(req.body,day_id).
         then((result) => {
 
             res.status(201).send(result);
@@ -12,7 +19,7 @@ exports.post = async (req, res, next) => {
         }).catch((erro) => {
             res.status(500).send("Houve um erro " + erro);
         });
-
+    }
 };
 
 exports.get = async (req, res, next) => {
