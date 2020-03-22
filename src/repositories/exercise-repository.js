@@ -14,8 +14,12 @@ exports.delete = async (exercise) => {
 }
 
 exports.post = async (exercise,group_id) => {
+    const {name,repeticoes} = exercise;
 
-
-    return Exercise.create(exercise)
+    return Exercise.create({
+        name:name,
+        repeticoes:repeticoes,
+        group_id:group_id
+    })
 }
 

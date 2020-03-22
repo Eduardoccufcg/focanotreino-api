@@ -5,20 +5,20 @@ const dayRepository = require("../repositories/day-repository");
 
 exports.post = async (req, res, next) => {
 
-    const {day_id} = req.params;
+    const { day_id } = req.params;
     const day = await dayRepository.getById(day_id);
-    console.log(day)
-    if(!day){
-        res.status(404).json({error: "Dia não existe"});
-    }else{
-        repository.post(req.body,day_id).
-        then((result) => {
 
-            res.status(201).send(result);
+    if (!day) {
+        res.status(404).json({ error: "Dia não existe" });
+    } else {
+        repository.post(req.body, day_id).
+            then((result) => {
 
-        }).catch((erro) => {
-            res.status(500).send("Houve um erro " + erro);
-        });
+                res.status(201).send(result);
+
+            }).catch((erro) => {
+                res.status(500).send("Houve um erro " + erro);
+            });
     }
 };
 
@@ -36,7 +36,7 @@ exports.getById = (req, res, next) => {
 
     repository.getById(req.params.id).then(group => {
         if (group == null) {
-            res.status(404).send({ "error": "Grupo não existe" });
+            res.status(404).json({ error: "Grupo não existe" });
         } else {
             res.status(200).send(group);
         }
@@ -51,7 +51,7 @@ exports.deleteById = (req, res, next) => {
     repository.getById(req.params.id).then(group => {
 
         if (group == null) {
-            res.status(404).send({ "error": "Grupo não existe" });
+            res.status(404).json({ error: "Grupo não existe" });
         } else {
             repository.delete(group).then(() => {
                 res.status(204).send();
@@ -60,6 +60,25 @@ exports.deleteById = (req, res, next) => {
 
             });
         };
-        
+
     })
+};
+exports.deleteByDay = async (req, res, next) => {
+    const { day_id, group_id } = req.params;
+    const group = await repository.getById(group_id);
+    const day = await dayRepository.getById(day_id);
+    if (group == null) {
+        res.status(404).json({ error: "Grupo não existe" });
+    }
+    else if (day == null) {
+        res.status(404).json({ error: "Dia não existe" });
+    } else {
+        repository.deleteByDay(group, day).then(() => {
+            res.status(204).send();
+        }).catch(() => {
+            res.status(500).send();
+        }
+
+        );
+    }
 };

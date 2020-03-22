@@ -26,6 +26,9 @@ class Exercise extends Model{
 			tableName: 'exercises',
 		})
 	}
+	static associate(models){
+		this.belongsToMany(models.Exercise,{ through: 'group_exercise', foreignKey: 'exerciseId' })
+	}
 
 }
 module.exports = Exercise;

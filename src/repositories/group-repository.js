@@ -13,15 +13,22 @@ exports.delete = async (group) => {
     await group.destroy();
 }
 
-exports.post = async (group,day_id) =>{
-    const {name} = group;
+exports.post = async (groupAux, day) => {
 
-    return Group.create({
-        name: name,
-        day_id:day_id
-    })
+    const name = groupAux.name;
+    const [group] = await Group.findOrCreate({
+
+        where: {
+            name
+        }
+    });
+    await group.addDay(day);
+    return group;
+
 }
 
+exports.deleteByDay = async (group, day) => {
 
+    await group.removeDay(day);
 
-
+}

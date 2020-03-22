@@ -20,8 +20,7 @@ class Day extends Model{
 		})
 	}
 	static associate(models){
-		this.hasMany(models.Group,{foreignKey: 'day_id',as:"groups",
-		onDelete: 'cascade', hooks: true});
+		this.belongsToMany(models.Group, { foreignKey: 'day_id' , through:'day_group',as:'groups'})
 	}
 }
 module.exports = Day;

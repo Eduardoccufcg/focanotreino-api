@@ -1,24 +1,26 @@
 
 const Day = require('../models/Day');
 const Group = require('../models/Group');
+
 exports.get = async () => {
     return await Day.findAll({
-        include:[
-             {
-                 model:Group,
-                 as:'groups',
-                 attributes: { exclude: ['day_id'] }
-             }
-         ]
+        include: [
+            {
+                model: Group,
+                as: 'groups',
+                through: { attributes: [] }
+            }
+        ]
     });
 }
 
 exports.getById = async (id) => {
-    return await Day.findByPk(id,{
-        include:[
+    return await Day.findByPk(id, {
+        include: [
             {
-                model:Group,
-                as:'groups'
+                model: Group,
+                as: 'groups',
+                through: { attributes: [] }
             }
         ]
     });
@@ -31,4 +33,6 @@ exports.delete = async (day) => {
 exports.post = async (day) => {
     return Day.create(day)
 }
+
+
 
