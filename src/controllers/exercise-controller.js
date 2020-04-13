@@ -5,12 +5,12 @@ const repositoryGroup = require("../repositories/group-repository");
 
 exports.post = async (req, res, next) => {
 
-    const{grupo_id} = req.params;
-    const group = repositoryGroup.getById(grupo_id);
+    const {group_id} = req.params;
+    const group = await repositoryGroup.getById(group_id);
     if(!group){
         res.status(404).json({error: "Grupo não existe"});
     }
-    repository.post(req.body,grupo_id).
+    repository.post(req.body,group_id).
         then((result) => {
 
             res.status(201).json(result);

@@ -1,6 +1,7 @@
 
 const Day = require('../models/Day');
 const Group = require('../models/Group');
+const Exercise = require('../models/Exercise');
 
 exports.get = async () => {
     return await Day.findAll({
@@ -20,6 +21,11 @@ exports.getById = async (id) => {
             {
                 model: Group,
                 as: 'groups',
+                include:[{
+                   
+                    association: 'exercises'
+                }
+                ],
                 through: { attributes: [] }
             }
         ]

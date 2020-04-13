@@ -14,6 +14,7 @@ exports.delete = async (exercise) => {
 }
 
 exports.post = async (exercise,group_id) => {
+    console.log(group_id);
     const {name,repeticoes} = exercise;
 
     return Exercise.create({

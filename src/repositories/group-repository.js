@@ -6,7 +6,11 @@ exports.get = async () => {
 }
 
 exports.getById = async (id) => {
-    return await Group.findByPk(id);
+    return await Group.findByPk(id,{
+        include:{
+            association: 'exercises'
+        }
+    });
 }
 
 exports.delete = async (group) => {

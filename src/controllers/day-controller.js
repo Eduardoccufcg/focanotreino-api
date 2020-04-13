@@ -35,7 +35,7 @@ exports.getById = (req, res, next) => {
         }
 
     }).catch(e => {
-        res.send(400).send(e);
+        res.status(400).send(e);
     })
 
 };

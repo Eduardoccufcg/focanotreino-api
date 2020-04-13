@@ -9,4 +9,4 @@ router.get('/', controller.get);
 router.get('/:id', controller.getById);
 router.delete('/:id', controller.deleteById);
 
-module.exports = router;
+module.exports = router

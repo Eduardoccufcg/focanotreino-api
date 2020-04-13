@@ -27,7 +27,7 @@ class Exercise extends Model{
 		})
 	}
 	static associate(models){
-		this.belongsToMany(models.Exercise,{ through: 'group_exercise', foreignKey: 'exerciseId' })
+		this.belongsTo(models.Group,{ as: "group", foreignKey: 'group_id' })
 	}
 
 }
